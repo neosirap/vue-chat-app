@@ -127,8 +127,6 @@ export default {
       this.messages.push(getMessage())
 
       this.channel = channelId
-
-      this.sendRandom()
     },
     // Random message generator
     sendRandom() {
@@ -151,6 +149,7 @@ export default {
     },
     scrollToBottom() {
       this.$nextTick(() => {
+        console.log(this.$refs.messages.scrollHeight)
         this.$refs.messages.scrollTop = this.$refs.messages.scrollHeight
       })
     }

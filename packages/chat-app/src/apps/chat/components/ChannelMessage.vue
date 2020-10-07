@@ -1,11 +1,9 @@
 <template>
   <div class="d-flex flex-grow-1" :class="{ 'flex-row-reverse': isOwnMessage}">
-    <div class="font-weight-bold" style="margin-top:7px">
-      <span v-if=isOwnMessage>></span>
-      Dave
-      <span v-if=!isOwnMessage><</span>
+    <div v-if="!isOwnMessage" class="font-weight-bold" style="margin-top:8px">
+      <span>{{ message.user.name }}</span><span style="margin-left:7px">></span>
     </div>
-    <div class="mx-2">
+    <div class="mx-1">
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
           <v-card
@@ -21,6 +19,7 @@
         <span>{{ message.timestamp | formatDate('lll') }}</span>
       </v-tooltip>
     </div>
+    <v-avatar size="40"/> <!-- If this line is not included, ../pages/ChannelPage.vue's method scrollToBottom doesn't work -->
   </div>
 </template>
 
@@ -33,7 +32,6 @@
 | Display messages in channel with user information and timestamp
 |
 */
-import UserAvatar from './UserAvatar'
 
 export default {
   components: {

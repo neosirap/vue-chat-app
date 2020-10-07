@@ -34,7 +34,6 @@
 
 <script>
 import InputBox from '../components/InputBox'
-import UserAvatar from '../components/UserAvatar'
 import ChannelMessage from '../components/ChannelMessage'
 
 // Demo messages and users
@@ -100,10 +99,16 @@ export default {
       this.messages.push(getMessage())
       this.messages.push(getMessage())
       this.messages.push(getMessage(this.user))
-	  this.messages.push(getMessage())
-	  this.messages.push(getMessage(this.user))
-	  this.messages.push(getMessage(this.user))
-	  this.messages.push(getMessage(this.user))	
+	    this.messages.push(getMessage())
+      this.messages.push(getMessage(this.user))
+      this.messages.push(getMessage(this.user))
+      this.messages.push(getMessage(this.user))	
+      this.messages.push(getMessage(this.user))
+      this.messages.push(getMessage(this.user))
+      this.messages.push(getMessage(this.user))	
+      this.messages.push(getMessage(this.user))
+      this.messages.push(getMessage(this.user))
+      this.messages.push(getMessage(this.user))	
 
       this.channel = channelId
     },
@@ -120,7 +125,10 @@ export default {
     },
     scrollToBottom() {
       this.$nextTick(() => {
-        this.$refs.messages.scrollTop = this.$refs.messages.scrollHeight
+        const wow = this.$refs.messages.scrollHeight
+
+        console.log(wow)
+        this.$refs.messages.scrollTop = (wow)
       })
     }
   }
@@ -156,7 +164,7 @@ export default {
 
   .messages {
     flex-grow: 1;
-	padding-right: 16px;
+    padding-right: 9px;
     margin-bottom: 68px;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;

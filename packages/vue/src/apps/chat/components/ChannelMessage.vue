@@ -1,7 +1,5 @@
 <template>
   <div class="d-flex flex-grow-1" :class="{ 'flex-row-reverse': isOwnMessage}">
-    <user-avatar :user="message.user" />
-
     <div class="mx-2">
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
@@ -18,6 +16,7 @@
         <span>{{ message.timestamp | formatDate('lll') }}</span>
       </v-tooltip>
     </div>
+    <user-avatar :user="message.user" />
   </div>
 </template>
 
