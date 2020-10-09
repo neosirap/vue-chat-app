@@ -1,0 +1,10 @@
+- show user name in right hand corner
+- get rid of the default messages
+- insert mandatory splash screen before entering site asking for username
+(above 3 est. time: 1 day)
+
+Major (est. time 2 - 3 days)
+- connect to backend
+  - figure out firebase
+  - design database
+  - connect frontend to backend
