@@ -6,7 +6,8 @@
       <div class="title font-weight-bold"># {{ $route.params.id }}</div>
 
       <v-spacer></v-spacer>
-
+      <div class="font-weight-bold">Hi, {{ user.name }}</div>
+      
     </v-app-bar>
 
     <v-divider></v-divider>

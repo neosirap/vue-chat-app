@@ -31,29 +31,6 @@
     <v-card class="flex-grow-1">
       <router-view :key="$route.fullPath" :user="user" @toggle-menu="drawer = !drawer"></router-view>
     </v-card>
-
-    <!-- create a new channel dialog -->
-    <v-dialog v-model="showCreateDialog" max-width="400">
-      <v-card>
-        <v-card-title class="title">{{ $t('chat.addChannel') }}</v-card-title>
-        <div class="pa-3">
-          <v-text-field
-            ref="channel"
-            v-model="newChannel"
-            :label="$tc('chat.channel', 1)"
-            maxlength="20"
-            counter="20"
-            autofocus
-            @keyup.enter="addChannel()"
-          ></v-text-field>
-        </div>
-        <v-card-actions class="pa-2">
-          <v-spacer></v-spacer>
-          <v-btn @click="showCreateDialog = false">{{ $t('common.cancel') }}</v-btn>
-          <v-btn :loading="isLoadingAdd" color="success" @click="addChannel()">{{ $t('common.add') }}</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
   </div>
 </template>
 
