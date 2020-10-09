@@ -31,6 +31,28 @@
     <v-card class="flex-grow-1">
       <router-view :key="$route.fullPath" :user="user" @toggle-menu="drawer = !drawer"></router-view>
     </v-card>
+
+    <!-- create a new channel dialog -->
+    <v-dialog v-model="showLogInDialog" persistent max-width="400">
+      <v-card>
+        <v-card-title class="title">Enter name</v-card-title>
+        <div class="pa-3">
+          <v-text-field
+            ref="channel"
+            v-model="userName"
+            label="Name"
+            maxlength="30"
+            counter="30"
+            autofocus
+            @keyup.enter="setName()"
+          ></v-text-field>
+        </div>
+        <v-card-actions class="pa-2">
+          <v-spacer></v-spacer>
+          <v-btn :loading="isLoadingAdd" color="success" @click="setName()">Continue</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -50,39 +72,26 @@ export default {
       drawer: null,
 
       // logged user
-      user: {
-        id: 12,
-        name: 'John Cena',
-        avatar: '/images/avatars/avatar1.svg'
-      },
+      user: null,
 
       // initial channels
       channels: ['general', 'lifestyle', 'sports', 'entertainment', 'tech'],
 
       // create channel variables
-      showCreateDialog: false,
+      showLogInDialog: true,
       isLoadingAdd: false,
-      newChannel: ''
+      userName: ''
     }
   },
   methods: {
     // Add and join the channel on creation
-    addChannel() {
-      if (!this.newChannel) {
-        this.$refs.channel.focus()
-
-        return
-      }
-
+    setName() {
       this.isLoadingAdd = true
-
-      setTimeout(() => {
-        this.isLoadingAdd = false
-        this.channels.push(this.newChannel)
-        this.showCreateDialog = false
-        this.$router.push(`/apps/chat/channel/${this.newChannel}`)
-        this.newChannel = ''
-      }, 300)
+      this.user = {
+        name: this.userName
+      }
+      this.showLogInDialog = false  
+      this.isLoadingAdd = false
     }
   }
 }

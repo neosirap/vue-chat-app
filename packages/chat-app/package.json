@@ -12,6 +12,7 @@
     "animate.css": "^4.1.0",
     "apexcharts": "^3.19.2",
     "echarts": "^4.8.0",
+    "firebase": "^7.23.0",
     "flag-icon-css": "^3.4.6",
     "lodash": "^4.17.15",
     "moment": "^2.26.0",

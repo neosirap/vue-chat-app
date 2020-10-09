@@ -57,5 +57,10 @@ export default {
   },
   setToolbarDetached: (state, isDetached) => {
     state.isToolbarDetached = isDetached
+  },
+  setUserName: (state, name) => {
+    state.user = {
+      name: name
+    }
   }
 }

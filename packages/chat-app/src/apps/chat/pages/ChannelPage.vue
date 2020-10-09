@@ -6,7 +6,7 @@
       <div class="title font-weight-bold"># {{ $route.params.id }}</div>
 
       <v-spacer></v-spacer>
-      <div class="font-weight-bold">Hi, {{ user.name }}</div>
+      <div v-if="user !== null" class="font-weight-bold">You are logged in as {{ user.name }}.</div>
       
     </v-app-bar>
 
@@ -38,7 +38,7 @@ import InputBox from '../components/InputBox'
 import ChannelMessage from '../components/ChannelMessage'
 
 // Demo messages and users
-import getMessage, { users } from '../content/messages'
+import getMessage from '../content/messages'
 
 /*
 |---------------------------------------------------------------------
@@ -71,12 +71,12 @@ export default {
 
       // online users
       users: [
-        this.user,
-        ...users
+        this.user
       ],
 
       // demo random message timeout
-      timeoutGenerator: null
+      timeoutGenerator: null,
+      wow: false
     }
   },
   watch: {
@@ -97,19 +97,46 @@ export default {
       this.messages = []
 
       // DEMO: generate random message to fill the channel
-      this.messages.push(getMessage())
-      this.messages.push(getMessage())
-      this.messages.push(getMessage(this.user))
-	    this.messages.push(getMessage())
-      this.messages.push(getMessage(this.user))
-      this.messages.push(getMessage(this.user))
-      this.messages.push(getMessage(this.user))	
-      this.messages.push(getMessage(this.user))
-      this.messages.push(getMessage(this.user))
-      this.messages.push(getMessage(this.user))	
-      this.messages.push(getMessage(this.user))
-      this.messages.push(getMessage(this.user))
-      this.messages.push(getMessage(this.user))	
+      this.messages.push({
+        id: '_' + Math.random().toString(36).substr(2, 9),
+        user: {
+          name: 'asdf'
+        },
+        text: getMessage(),
+        timestamp: (new Date()).getTime()
+      })
+      this.messages.push({
+        id: '_' + Math.random().toString(36).substr(2, 9),
+        user: {
+          name: 'asdff'
+        },
+        text: getMessage(),
+        timestamp: (new Date()).getTime()
+      })
+      this.messages.push({
+        id: '_' + Math.random().toString(36).substr(2, 9),
+        user: {
+          name: 'asdf'
+        },
+        text: getMessage(),
+        timestamp: (new Date()).getTime()
+      })
+      this.messages.push({
+        id: '_' + Math.random().toString(36).substr(2, 9),
+        user: {
+          name: 'asdff'
+        },
+        text: getMessage(),
+        timestamp: (new Date()).getTime()
+      })
+      this.messages.push({
+        id: '_' + Math.random().toString(36).substr(2, 9),
+        user: {
+          name: 'asdff'
+        },
+        text: getMessage(),
+        timestamp: (new Date()).getTime()
+      })
 
       this.channel = channelId
     },

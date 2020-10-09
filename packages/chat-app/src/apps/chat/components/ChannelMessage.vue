@@ -51,7 +51,12 @@ export default {
   computed: {
     // Check if it's a message from the logged user
     isOwnMessage() {
-      return this.user.id === this.message.user.id
+      if (this.user === null) {
+        return false
+      } else {
+        return this.user.name === this.message.user.name
+      }
+      
     }
   }
 }

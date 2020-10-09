@@ -1,4 +1,4 @@
-- show user name in right hand corner
+- show user name in right hand corner (ticked)
 - get rid of the default messages
 - insert mandatory splash screen before entering site asking for username
 (above 3 est. time: 1 day)
