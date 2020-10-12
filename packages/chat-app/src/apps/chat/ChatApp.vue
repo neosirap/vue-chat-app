@@ -1,6 +1,7 @@
 <template>
   <div class="d-flex flex-grow-1 flex-row mt-2">
     <v-navigation-drawer
+      v-model="drawer"
       :app="$vuetify.breakpoint.mdAndDown"
       :permanent="$vuetify.breakpoint.lgAndUp"
       floating
@@ -27,7 +28,7 @@
 
     <!-- channel view -->
     <v-card class="flex-grow-1">
-      <router-view :key="$route.fullPath" :username="username"></router-view>
+      <router-view :key="$route.fullPath" :username="username" @toggle-menu="drawer = !drawer"></router-view>
     </v-card>
 
     <!-- log in dialog -->
@@ -68,6 +69,9 @@ import { mapState } from 'vuex'
 export default {
   data() {
     return {
+      // navigation drawer
+      drawer: null,
+
       // create channel variables
       showLogInDialog: true,
       isLoadingAdd: false,

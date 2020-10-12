@@ -18,6 +18,7 @@
       </v-tooltip>
     </div>
     <v-avatar size="40"/> <!-- If this line is not included, ../pages/ChannelPage.vue's method scrollToBottom doesn't work -->
+    
   </div>
 </template>
 

@@ -7,10 +7,13 @@
     "packages/*"
   ],
   "scripts": {
+    "install:chat-app": "cd packages/chat-app && npm install",
     "dev:vue": "cd packages/vue && npm run dev",
     "dev:starter": "cd packages/starter && npm run dev",
+    "dev:chat-app": "cd packages/chat-app && npm run dev",
     "build:vue": "cd packages/vue && npm run build",
-    "build:starter": "cd packages/starter && npm run build"
+    "build:starter": "cd packages/starter && npm run build",
+    "build:chat-app": "cd packages/chat-app && npm run build"
   },
   "dependencies": {
     "yarn": "^1.22.10"

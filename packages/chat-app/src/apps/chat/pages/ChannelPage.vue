@@ -2,9 +2,11 @@
   <div>
     <!-- channel toolbar -->
     <v-app-bar flat height="64">
+      <v-app-bar-nav-icon class="hidden-lg-and-up" @click="$emit('toggle-menu')"></v-app-bar-nav-icon>
       <div class="title font-weight-bold"># {{ channelName }}</div>
 
       <v-spacer></v-spacer>
+
       <div v-if="username !== null" class="font-weight-bold">You are logged in as {{ username }}.</div>
       
     </v-app-bar>
@@ -22,12 +24,19 @@
             class="my-4 d-flex"
           />
         </transition-group>
+        <v-progress-circular
+          v-show="loadingMessages"
+          class="my-4"
+          indeterminate
+          size="64"
+        ></v-progress-circular>
       </div>
 
       <div class="input-box pa-2">
         <input-box :channel="channelName" @send-message="sendMessage" />
       </div>
     </div>
+    
   </div>
 </template>
 
@@ -61,18 +70,23 @@ export default {
   data() {
     return {
       // channel information and messages
-      channelName: ''
+      channelName: '',
+      loadingMessages: true
     }
   },
   computed: mapState('app', ['messages']),
   created() {
+    this.startChannel()
     this.getMessages()
   },
   methods: {
-    getMessages() {
+    startChannel() {
+      this.loadingMessages = true
       this.channelName = this.$route.params.channel_id
-
+    },
+    getMessages() {
       db.ref('messages/' + this.channelName).on('value', (snapshot) => {
+        this.loadingMessages = false
         this.$store.commit('app/getMessages', { channel: this.channelName, messages: snapshot.val() })
         this.scrollToBottom()
       })
