@@ -83,6 +83,10 @@ export default {
     startChannel() {
       this.loadingMessages = true
       this.channelName = this.$route.params.channel_id
+
+      if (!(this.channelName in this.messages)) {
+        this.$router.replace({ path: '/error' })
+      }
     },
     getMessages() {
       db.ref('messages/' + this.channelName).on('value', (snapshot) => {

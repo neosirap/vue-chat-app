@@ -16,6 +16,9 @@ export const routes = [{
   children: [
     ...chatRoutes
   ]
+}, {
+  path: '*',
+  component: () => import(/* webpackChunkName: "" */ '@/pages/error/NotFoundPage.vue')
 }]
 
 const router = new Router({

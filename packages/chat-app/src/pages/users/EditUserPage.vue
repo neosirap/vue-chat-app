@@ -6,7 +6,7 @@
         <v-breadcrumbs :items="breadcrumbs" class="pa-0 py-2"></v-breadcrumbs>
       </div>
       <v-spacer></v-spacer>
-      <v-btn icon @click>
+      <v-btn icon>
         <v-icon>mdi-refresh</v-icon>
       </v-btn>
     </div>
