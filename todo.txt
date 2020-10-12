@@ -4,39 +4,26 @@
 (above 3 est. time: 1 day) 
 
 Major (est. time 2 - 3 days)
-- connect to backend
-  - figure out firebase
+- connect to backend (ticked)
+  - figure out firebase (ticked)
   - design database (ticked)
-  - connect frontend to backend
-
-Format:
-messages: {
-  general: [
-    {
-      text: "Hi!",
-      user: "user1"
-      date:
-    }, {
-      text: "Hi2!",
-      user: "user2"
-      date:
-    }
-  ],
-  sports: [
-    {
-      text: "Hi!",
-      user: "user1"
-      date:
-    }, {
-      text: "Hi2!",
-      user: "user2"
-      date:
-    }
-  ],
-}
+  - connect frontend to backend (ticked)
   
-
 Things to research:
 - promises
 - race condition
 - axios
+
+Missing features:
+- centered loading icon
+- changing channel changes title
+- can't comment whitespace
+- can't have username be whitespace
+- remove horizontal scrollbar from emoji sender
+
+Features:
+- dynamic sidebar
+- history
+- SPA
+- error page
+- sendable emojis
