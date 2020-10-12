@@ -58,15 +58,7 @@ export default {
   setToolbarDetached: (state, isDetached) => {
     state.isToolbarDetached = isDetached
   },
-  setUserName: (state, name) => {
-    state.user = {
-      name: name
-    }
-  },
   getMessages: (state, payload) => {
     state.messages[payload.channel] = payload.messages
-  },
-  setUsername: (state, username) => {
-    state.username = username
   }
 }

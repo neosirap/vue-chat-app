@@ -67,18 +67,13 @@ export default {
       channel: ''
     }
   },
-  computed: {
-    ...mapState('app', ['messages'])
-  },
+  computed: mapState('app', ['messages']),
   watch: {
     '$route.params.id'() {
       this.startChannel(this.$route.params.id)
     }
   },
   created() {
-    
-  },
-  mounted() {
     this.startChannel(this.$route.params.id)
     this.getMessages()
   },

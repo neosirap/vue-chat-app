@@ -35,15 +35,15 @@ const state = {
 
   channels: ['general', 'lifestyle', 'sports', 'entertainment', 'tech'],
 
-  username: null,
-
   messages: {
-    'general': null,
-    'lifestyle': null,
-    'sports': null,
-    'entertainment': null,
-    'tech': null
-  }
+    general: null,
+    lifestyle: null,
+    sports: null,
+    entertainment: null,
+    tech: null
+  },
+
+  chatAppName: 'HappyChat'
 }
 
 export default {

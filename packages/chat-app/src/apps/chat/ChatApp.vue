@@ -1,7 +1,6 @@
 <template>
   <div class="d-flex flex-grow-1 flex-row mt-2">
     <v-navigation-drawer
-      v-model="drawer"
       :app="$vuetify.breakpoint.mdAndDown"
       :permanent="$vuetify.breakpoint.lgAndUp"
       floating
@@ -11,8 +10,7 @@
       width="240"
     >
       <div class="px-2 py-1">
-        <div class="title font-weight-bold primary--text">HappyChat</div>
-        <div class="overline">1.0.0</div>
+        <div class="title font-weight-bold primary--text">{{ chatAppName }}</div>
       </div>
 
       <v-list dense>
@@ -32,7 +30,7 @@
       <router-view :key="$route.fullPath" :username="username" @toggle-menu="drawer = !drawer"></router-view>
     </v-card>
 
-    <!-- create a new channel dialog -->
+    <!-- log in dialog -->
     <v-dialog v-model="showLogInDialog" persistent max-width="400">
       <v-card>
         <v-card-title class="title">Log in with a username</v-card-title>
@@ -70,23 +68,19 @@ import { mapState } from 'vuex'
 export default {
   data() {
     return {
-      // navigation drawer
-      drawer: null,
-
       // create channel variables
       showLogInDialog: true,
       isLoadingAdd: false,
-      inputName: ''
+      inputName: '',
+      username: null
     }
   },
-  computed: {
-    ...mapState('app', ['channels', 'username'])
-  },
+  computed: mapState('app', ['channels', 'chatAppName']),
   methods: {
-    // Add and join the channel on creation
+    // Set username
     setUsername() {
       this.isLoadingAdd = true
-      this.$store.commit('app/setUsername', this.inputName)
+      this.username = this.inputName
       this.showLogInDialog = false
       this.isLoadingAdd = false
     }
