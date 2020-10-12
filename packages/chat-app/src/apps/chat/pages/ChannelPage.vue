@@ -82,7 +82,7 @@ export default {
       this.channel = channelId
     },
     getMessages() {
-      db.ref('messages/' + this.channel).once('value').then((snapshot) => {
+      db.ref('messages/' + this.channel).on('value', (snapshot) => {
         this.$store.commit('app/getMessages', { channel: this.channel, messages: snapshot.val() })
         this.$nextTick(() => {
           this.$refs.messages.scrollTop = (this.$refs.messages.scrollHeight)
@@ -102,8 +102,6 @@ export default {
         id: newMessageKey
       }
       db.ref('messages/' + this.channel).update(update)
-
-      this.getMessages()
     }
   }
 }
