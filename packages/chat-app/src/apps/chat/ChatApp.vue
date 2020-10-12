@@ -27,7 +27,7 @@
 
     <!-- channel view -->
     <v-card class="flex-grow-1">
-      <router-view :key="$route.fullPath" :username="username" @toggle-menu="drawer = !drawer"></router-view>
+      <router-view :key="$route.fullPath" :username="username"></router-view>
     </v-card>
 
     <!-- log in dialog -->

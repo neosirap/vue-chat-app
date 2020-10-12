@@ -2,7 +2,7 @@
   <div>
     <!-- channel toolbar -->
     <v-app-bar flat height="64">
-      <div class="title font-weight-bold"># {{ $route.params.id }}</div>
+      <div class="title font-weight-bold"># {{ channelName }}</div>
 
       <v-spacer></v-spacer>
       <div v-if="username !== null" class="font-weight-bold">You are logged in as {{ username }}.</div>
@@ -16,7 +16,7 @@
       <div id="messages" ref="messages" class="messages mx-2">
         <transition-group name="list">
           <channel-message
-            v-for="message in messages[channel]"
+            v-for="message in messages[channelName]"
             :key="message.id"
             :message="message"
             class="my-4 d-flex"
@@ -25,7 +25,7 @@
       </div>
 
       <div class="input-box pa-2">
-        <input-box :channel="channel" @send-message="sendMessage" />
+        <input-box :channel="channelName" @send-message="sendMessage" />
       </div>
     </div>
   </div>
@@ -35,9 +35,6 @@
 import InputBox from '../components/InputBox'
 import ChannelMessage from '../components/ChannelMessage'
 import db from '../../../firebase'
-
-// Demo messages and users
-import getMessage from '../content/messages'
 
 import { mapState } from 'vuex'
 
@@ -64,35 +61,30 @@ export default {
   data() {
     return {
       // channel information and messages
-      channel: ''
+      channelName: ''
     }
   },
   computed: mapState('app', ['messages']),
-  watch: {
-    '$route.params.id'() {
-      this.startChannel(this.$route.params.id)
-    }
-  },
   created() {
-    this.startChannel(this.$route.params.id)
     this.getMessages()
   },
   methods: {
-    startChannel(channelId) {
-      this.channel = channelId
-    },
     getMessages() {
-      db.ref('messages/' + this.channel).on('value', (snapshot) => {
-        this.$store.commit('app/getMessages', { channel: this.channel, messages: snapshot.val() })
-        this.$nextTick(() => {
-          this.$refs.messages.scrollTop = (this.$refs.messages.scrollHeight)
-        })
+      this.channelName = this.$route.params.channel_id
+
+      db.ref('messages/' + this.channelName).on('value', (snapshot) => {
+        this.$store.commit('app/getMessages', { channel: this.channelName, messages: snapshot.val() })
+        this.scrollToBottom()
       })
-      
+    },
+    scrollToBottom() {
+      this.$nextTick(() => {
+        this.$refs.messages.scrollTop = (this.$refs.messages.scrollHeight)
+      })
     },
     // Send message to channel
     sendMessage(message) {
-      const newMessageKey = db.ref().child('messages/' + this.channel).push().key
+      const newMessageKey = db.ref().child('messages/' + this.channelName).push().key
       const update = {}
 
       update[newMessageKey] = {
@@ -101,7 +93,7 @@ export default {
         timestamp: (new Date()).getTime(),
         id: newMessageKey
       }
-      db.ref('messages/' + this.channel).update(update)
+      db.ref('messages/' + this.channelName).update(update)
     }
   }
 }
