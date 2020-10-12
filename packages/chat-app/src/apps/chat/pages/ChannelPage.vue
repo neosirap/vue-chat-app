@@ -2,11 +2,10 @@
   <div>
     <!-- channel toolbar -->
     <v-app-bar flat height="64">
-      <v-app-bar-nav-icon class="hidden-lg-and-up" @click="$emit('toggle-menu')"></v-app-bar-nav-icon>
       <div class="title font-weight-bold"># {{ $route.params.id }}</div>
 
       <v-spacer></v-spacer>
-      <div v-if="user !== null" class="font-weight-bold">You are logged in as {{ user.name }}.</div>
+      <div v-if="username !== null" class="font-weight-bold">You are logged in as {{ username }}.</div>
       
     </v-app-bar>
 
@@ -17,10 +16,9 @@
       <div id="messages" ref="messages" class="messages mx-2">
         <transition-group name="list">
           <channel-message
-            v-for="message in messages"
+            v-for="message in messages[channel]"
             :key="message.id"
             :message="message"
-            :user="user"
             class="my-4 d-flex"
           />
         </transition-group>
@@ -36,9 +34,12 @@
 <script>
 import InputBox from '../components/InputBox'
 import ChannelMessage from '../components/ChannelMessage'
+import db from '../../../firebase'
 
 // Demo messages and users
 import getMessage from '../content/messages'
+
+import { mapState } from 'vuex'
 
 /*
 |---------------------------------------------------------------------
@@ -55,109 +56,59 @@ export default {
   },
   props: {
     // Current logged user
-    user: {
-      type: Object,
+    username: {
+      type: String,
       default: () => ({})
     }
   },
   data() {
     return {
-      // users online drawer
-      usersDrawer: true,
-
       // channel information and messages
-      channel: '',
-      messages: [],
-
-      // online users
-      users: [
-        this.user
-      ],
-
-      // demo random message timeout
-      timeoutGenerator: null,
-      wow: false
+      channel: ''
     }
+  },
+  computed: {
+    ...mapState('app', ['messages'])
   },
   watch: {
     '$route.params.id'() {
       this.startChannel(this.$route.params.id)
     }
   },
+  created() {
+    
+  },
   mounted() {
     this.startChannel(this.$route.params.id)
-  },
-  beforeDestroy() {
-    clearTimeout(this.timeoutGenerator)
+    this.getMessages()
   },
   methods: {
     startChannel(channelId) {
-      clearTimeout(this.timeoutGenerator)
-
-      this.messages = []
-
-      // DEMO: generate random message to fill the channel
-      this.messages.push({
-        id: '_' + Math.random().toString(36).substr(2, 9),
-        user: {
-          name: 'asdf'
-        },
-        text: getMessage(),
-        timestamp: (new Date()).getTime()
-      })
-      this.messages.push({
-        id: '_' + Math.random().toString(36).substr(2, 9),
-        user: {
-          name: 'asdff'
-        },
-        text: getMessage(),
-        timestamp: (new Date()).getTime()
-      })
-      this.messages.push({
-        id: '_' + Math.random().toString(36).substr(2, 9),
-        user: {
-          name: 'asdf'
-        },
-        text: getMessage(),
-        timestamp: (new Date()).getTime()
-      })
-      this.messages.push({
-        id: '_' + Math.random().toString(36).substr(2, 9),
-        user: {
-          name: 'asdff'
-        },
-        text: getMessage(),
-        timestamp: (new Date()).getTime()
-      })
-      this.messages.push({
-        id: '_' + Math.random().toString(36).substr(2, 9),
-        user: {
-          name: 'asdff'
-        },
-        text: getMessage(),
-        timestamp: (new Date()).getTime()
-      })
-
       this.channel = channelId
+    },
+    getMessages() {
+      db.ref('messages/' + this.channel).once('value').then((snapshot) => {
+        this.$store.commit('app/getMessages', { channel: this.channel, messages: snapshot.val() })
+        this.$nextTick(() => {
+          this.$refs.messages.scrollTop = (this.$refs.messages.scrollHeight)
+        })
+      })
+      
     },
     // Send message to channel
     sendMessage(message) {
-      this.messages.push({
-        id: '_' + Math.random().toString(36).substr(2, 9),
-        user: this.user,
+      const newMessageKey = db.ref().child('messages/' + this.channel).push().key
+      const update = {}
+
+      update[newMessageKey] = {
+        username: this.username,
         text: message,
-        timestamp: (new Date()).getTime()
-      })
+        timestamp: (new Date()).getTime(),
+        id: newMessageKey
+      }
+      db.ref('messages/' + this.channel).update(update)
 
-      this.scrollToBottom()
-    },
-    scrollToBottom() {
-      this.$nextTick(() => {
-        const wow = this.$refs.messages.scrollHeight
-
-        console.log(wow)
-        this.$refs.messages.scrollTop = (wow)
-      })
+      this.getMessages()
     }
   }
 }

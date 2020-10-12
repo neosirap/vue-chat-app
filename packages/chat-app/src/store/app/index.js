@@ -1,7 +1,6 @@
 import configs from '../../configs'
 import actions from './actions'
 import mutations from './mutations'
-import { dbRef } from '../../firebase'
 
 const { product, time, theme, currencies  } = configs
 
@@ -36,15 +35,16 @@ const state = {
 
   channels: ['general', 'lifestyle', 'sports', 'entertainment', 'tech'],
 
-  user: null,
+  username: null,
 
-  messages: [dbRef.ref().once('value')]
+  messages: {
+    'general': null,
+    'lifestyle': null,
+    'sports': null,
+    'entertainment': null,
+    'tech': null
+  }
 }
-
-console.log(dbRef.ref().once('value').then(function(snapshot) {
-  const username = (snapshot.val() && snapshot.val().username) || 'Anonymous'
-  // ...
-}))
 
 export default {
   namespaced: true,

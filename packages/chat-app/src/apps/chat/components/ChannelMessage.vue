@@ -1,15 +1,13 @@
 <template>
-  <div class="d-flex flex-grow-1" :class="{ 'flex-row-reverse': isOwnMessage}">
-    <div v-if="!isOwnMessage" class="font-weight-bold" style="margin-top:8px">
-      <span>{{ message.user.name }}</span><span style="margin-left:7px">></span>
+  <div class="d-flex flex-grow-1">
+    <div class="font-weight-bold" style="margin-top:8px">
+      <span>{{ message.username }}</span><span style="margin-left:7px">></span>
     </div>
     <div class="mx-1">
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
           <v-card
             class="pa-1"
-            :class="{ 'primary darken-1': isOwnMessage}"
-            :dark="isOwnMessage"
             v-bind="attrs"
             v-on="on"
           >
@@ -37,26 +35,10 @@ export default {
   components: {
   },
   props: {
-    // Current logged user
-    user: {
-      type: Object,
-      default: () => {}
-    },
     // Message to display
     message: {
       type: Object,
       default: () => ({})
-    }
-  },
-  computed: {
-    // Check if it's a message from the logged user
-    isOwnMessage() {
-      if (this.user === null) {
-        return false
-      } else {
-        return this.user.name === this.message.user.name
-      }
-      
     }
   }
 }

@@ -62,5 +62,11 @@ export default {
     state.user = {
       name: name
     }
+  },
+  getMessages: (state, payload) => {
+    state.messages[payload.channel] = payload.messages
+  },
+  setUsername: (state, username) => {
+    state.username = username
   }
 }

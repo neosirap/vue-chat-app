@@ -17,13 +17,9 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig)
 
 // utils
-const dbRef = firebase.database()
-
-dbRef.ref().child('Text').set('asdfadsf')
+const db = firebase.database()
 
 // collection references
 
 // export utils/refs
-export {
-  dbRef
-}
+export default db

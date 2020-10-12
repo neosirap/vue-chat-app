@@ -19,6 +19,10 @@ import { mapState } from 'vuex'
 
 import config from './configs'
 
+import store from './store'
+
+import db from './firebase'
+
 // Layouts
 import defaultLayout from './layouts/DefaultLayout'
 import simpleLayout from './layouts/SimpleLayout'
@@ -50,7 +54,7 @@ export default {
     currentLayout: function() {
       const layout = this.$route.meta.layout || 'default'
 
-      return layout + 'Layout'
+      return layout + 'Layout'  
     }
   },
   head: {
@@ -59,6 +63,7 @@ export default {
       ...config.icons.map((href) => ({ rel: 'stylesheet', href }))
     ]
   }
+  
 }
 </script>
 

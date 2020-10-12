@@ -7,8 +7,6 @@ import store from './store'
 // VUE-ROUTER - https://router.vuejs.org/
 import router from './router'
 
-import db from './firebase'
-
 // PLUGINS
 import vuetify from './plugins/vuetify'
 import i18n from './plugins/vue-i18n'
@@ -49,6 +47,7 @@ Vue.config.productionTip = false
 | https://vuejs.org/v2/guide/instance.html
 |
 */
+
 export default new Vue({
   i18n,
   vuetify,

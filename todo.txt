@@ -1,10 +1,42 @@
 - show user name in right hand corner (ticked)
 - get rid of the default messages
-- insert mandatory splash screen before entering site asking for username
-(above 3 est. time: 1 day)
+- insert mandatory splash screen before entering site asking for username (ticked)
+(above 3 est. time: 1 day) 
 
 Major (est. time 2 - 3 days)
 - connect to backend
   - figure out firebase
-  - design database
+  - design database (ticked)
   - connect frontend to backend
+
+Format:
+messages: {
+  general: [
+    {
+      text: "Hi!",
+      user: "user1"
+      date:
+    }, {
+      text: "Hi2!",
+      user: "user2"
+      date:
+    }
+  ],
+  sports: [
+    {
+      text: "Hi!",
+      user: "user1"
+      date:
+    }, {
+      text: "Hi2!",
+      user: "user2"
+      date:
+    }
+  ],
+}
+  
+
+Things to research:
+- promises
+- race condition
+- axios
